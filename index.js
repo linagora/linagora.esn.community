@@ -1,5 +1,3 @@
-'use strict';
-
 const AwesomeModule = require('awesome-module');
 const Dependency = AwesomeModule.AwesomeModuleDependency;
 const path = require('path');
