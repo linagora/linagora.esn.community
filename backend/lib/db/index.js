@@ -1,11 +1,9 @@
-'use strict';
-
-// arguments: dependencies
-module.exports = function() {
-
-  // const model = require('./YOUR_MODEL')(dependencies);
+module.exports = dependencies => {
+  const community = require('./community')(dependencies);
+  const communityArchive = require('./community-archive');
 
   return {
-    // model
+    community,
+    communityArchive
   };
 };
