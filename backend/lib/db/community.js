@@ -1,5 +1,5 @@
 module.exports = dependencies => {
-  const mongoose = require('mongoose');
+  const mongoose = dependencies('db').mongo.mongoose;
   const baseCollaboration = dependencies('db').mongo.models['base-collaboration'];
   const ObjectId = mongoose.Schema.ObjectId;
 
@@ -23,7 +23,7 @@ module.exports = dependencies => {
   const CommunitySchema = baseCollaboration(communityJSON, 'community');
 
   CommunitySchema.statics.testTitleDomain = function(title, domains, cb) {
-    const query = {title: title, domain_ids: domains};
+    const query = { title: title, domain_ids: domains };
 
     this.findOne(query, cb);
   };
