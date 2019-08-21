@@ -1,2 +1,5 @@
-node_modules/
+node_modules
+frontend/components
+.idea
+tmp/
 package-lock.json

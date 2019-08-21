@@ -1,8 +1,0 @@
-button.btn.btn-link.community-button(ng-click= "ctrl.communityClick()", ng-disabled= "ctrl.communityDisabled", ng-switch = "ctrl.communityIconPosition")
-  .community-button-icon-and-text(ng-switch-when= "right")
-    span {{ ctrl.communityIconText | translate }}
-    i.mdi(ng-class= "ctrl.communityIconClass")
-
-  .community-button-icon-and-text(ng-switch-default)
-    i.mdi(ng-class= "ctrl.communityIconClass")
-    span {{ ctrl.communityIconText | translate }}

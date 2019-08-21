@@ -1,14 +1,16 @@
-(function() {
+(function(angular) {
   'use strict';
 
-  var MODULE_NAME = 'linagora.esn.community';
+  angular.module('linagora.esn.community').config(configBlock);
 
-  angular.module(MODULE_NAME)
-    .config(communityApplicationMenu);
+  function configBlock(tagsInputConfigProvider, dynamicDirectiveServiceProvider) {
+    tagsInputConfigProvider.setActiveInterpolation('tagsInput', {
+      placeholder: true,
+      displayProperty: true
+    });
 
-  function communityApplicationMenu(dynamicDirectiveServiceProvider) {
-    var home = new dynamicDirectiveServiceProvider.DynamicDirective(true, 'community-application-menu');
+    var community = new dynamicDirectiveServiceProvider.DynamicDirective(true, 'application-menu-community', {priority: 30});
 
-    dynamicDirectiveServiceProvider.addInjection('esn-application-menu', home);
+    dynamicDirectiveServiceProvider.addInjection('esn-application-menu', community);
   }
-})();
+})(angular);
