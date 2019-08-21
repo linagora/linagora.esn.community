@@ -3,6 +3,7 @@ const Dependency = AwesomeModule.AwesomeModuleDependency;
 const path = require('path');
 const glob = require('glob-all');
 const FRONTEND_JS_PATH = __dirname + '/frontend/app/';
+const MODULE_NAME = 'community';
 const AWESOME_MODULE_NAME = 'linagora.esn.community';
 
 const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
@@ -17,30 +18,31 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.elasticsearch', 'elasticsearch'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.collaboration', 'collaboration'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.tuple', 'tuple'),
-    new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.domain', 'domain')
+    new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.domain', 'domain'),
+    new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.esn-config', 'esn-config')
   ],
 
   states: {
-    lib: function(dependencies, callback) {
-      const moduleLib = require('./backend/lib')(dependencies);
-      const module = require('./backend/webserver/api')(dependencies, moduleLib);
+    // lib: function(dependencies, callback) {
+    //   const moduleLib = require('./backend/lib')(dependencies);
+    //   const module = require('./backend/webserver/api')(dependencies, moduleLib);
 
-      const lib = {
-        api: {
-          module: module
-        },
-        lib: moduleLib
-      };
+    //   const lib = {
+    //     api: {
+    //       module: module
+    //     },
+    //     lib: moduleLib
+    //   };
 
-      return callback(null, lib);
-    },
+    //   return callback(null, lib);
+    // },
 
     deploy: function(dependencies, callback) {
       // Register the webapp
       const app = require('./backend/webserver/application')(dependencies, this);
 
       // Register every exposed endpoints
-      app.use('/api', this.api.module);
+      // app.use('/api', this.api.module);
 
       const webserverWrapper = dependencies('webserver-wrapper');
 
@@ -54,12 +56,12 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
       });
       const lessFile = path.join(FRONTEND_JS_PATH, 'app.less');
 
-      webserverWrapper.injectAngularAppModules(AWESOME_MODULE_NAME, frontendJsFilesUri, AWESOME_MODULE_NAME, ['esn'], {
+      webserverWrapper.injectAngularAppModules(MODULE_NAME, frontendJsFilesUri, AWESOME_MODULE_NAME, ['esn'], {
         localJsFiles: frontendJsFilesFullPath
       });
-      webserverWrapper.injectLess(AWESOME_MODULE_NAME, [lessFile], 'esn');
+      webserverWrapper.injectLess(MODULE_NAME, [lessFile], 'esn');
 
-      webserverWrapper.addApp(AWESOME_MODULE_NAME, app);
+      webserverWrapper.addApp(MODULE_NAME, app);
 
       return callback();
     }

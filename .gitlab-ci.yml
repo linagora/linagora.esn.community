@@ -100,10 +100,10 @@ check_author:
       - /^release-.*/@linagora/lgs/openpaas/linagora.esn.community
 
 ####### tests without services requirements
-.frontend-test:
+frontend-test:
   <<: *test-template
   script:
-    - grunt -v test-frontend
+    - grunt -v test-unit-frontend
 
 .unit-backend-test:
   <<: *test-template
