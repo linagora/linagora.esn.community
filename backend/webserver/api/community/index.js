@@ -3,12 +3,12 @@ const moduleName = 'linagora.esn.community';
 module.exports = (dependencies, router) => {
   const authorizationMW = dependencies('authorizationMW');
   const requestMW = dependencies('requestMW');
-  const communities = require('../controllers.js');
-  const communityMiddleware = require('../middleware.js');
+  const communities = require('./controller')(dependencies);
+  const communityMiddleware = require('./middleware')(dependencies);
   const domainMiddleware = dependencies('domainMW');
   const moduleMiddleware = dependencies('moduleMW');
-    
-  router.all('/communities*', 
+
+  router.all('/communities*',
     authorizationMW.requiresAPILogin,
     moduleMiddleware.requiresModuleIsEnabledInCurrentDomain(moduleName)
   );

@@ -5,7 +5,7 @@ module.exports = dependencies => {
   const mongoose = dependencies('db').mongo.mongoose;
   const Community = mongoose.model('Community');
   const logger = dependencies('logger');
-  const activitystreamMW = dependencies("activitystreamMW");
+  const activitystreamMW = dependencies('activitystreamMW');
 
   activitystreamMW.addStreamResourceFinder(findStreamResource);
   activitystreamMW.addStreamWritableFinder(filterWritableTargets);
