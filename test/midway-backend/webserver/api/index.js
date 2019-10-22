@@ -35,7 +35,7 @@ describe('The communities API', function() {
 
       User = helpers.modules.current.deps('db').mongo.mongoose.model('User');
       Domain = helpers.modules.current.deps('db').mongo.mongoose.model('Domain');
-      fixtures = helpers.requireFixture('models/users.js')(User);
+      fixtures = require('../models/users.js')(User);
       userDomainModule = require('../../../../node_modules/linagora-rse/backend/core/user/domain');
       saveUser(user = fixtures.newDummyUser([email], password), done);
 
