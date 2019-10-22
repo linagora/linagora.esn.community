@@ -61,7 +61,6 @@ describe('The communityListController controller', function() {
 
     it('should set the $scope.communities with communityAPI#list result', function(done) {
       var result = [{_id: 123}, {_id: 234}];
-
       this.communityAPI.list = function() {
         return $q.when({data: result});
       };
@@ -102,7 +101,6 @@ describe('The communityListController controller', function() {
 
     it('should set the $scope.communities with communityAPI#list result', function(done) {
       var result = [{_id: 123}, {_id: 234}];
-
       this.communityAPI.list = function() {
         return $q.when({ data: result });
       };
@@ -143,7 +141,6 @@ describe('The communityListController controller', function() {
 
     it('should set the $scope.communities with userAPI#getCommunities result', function(done) {
       var result = [{_id: 123}, {_id: 234}];
-
       this.userAPI.getCommunities = function() {
         return $q.when({ data: result });
       };

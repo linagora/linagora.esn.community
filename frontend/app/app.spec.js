@@ -30,7 +30,6 @@ describe('The Community Angular module', function() {
 
       it('should send a GET to /community/api/communities?creator=:user_id&domain_id=:id', function() {
         var options = { creator: this.userId };
-
         this.$httpBackend.expectGET('/community/api/communities?creator=' + this.userId + '&domain_id=' + this.domainId).respond(200, []);
         this.communityAPI.list(this.domainId, options);
         this.$httpBackend.flush();
@@ -38,7 +37,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.list();
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -59,7 +57,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.get(this.communityId);
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -79,7 +76,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.del(this.communityId);
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -93,7 +89,6 @@ describe('The Community Angular module', function() {
 
       it('should send a POST request to /community/api/communities', function() {
         var community = {};
-
         this.$httpBackend.expectPOST('/community/api/communities', community).respond(202);
         this.communityAPI.create(community);
         this.$httpBackend.flush();
@@ -101,7 +96,6 @@ describe('The Community Angular module', function() {
 
       it('should send a POST to /community/api/communities with given query parameters ', function() {
         var community = {};
-
         this.$httpBackend.expectPOST('/community/api/communities?pipo1=pipo2&pipo3=pipo4', community).respond(202);
         this.communityAPI.create(community, { pipo1: 'pipo2', pipo3: 'pipo4' });
         this.$httpBackend.flush();
@@ -109,7 +103,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.create({});
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -140,7 +133,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.update('', {});
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -159,7 +151,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.getMembers(123);
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -179,7 +170,6 @@ describe('The Community Angular module', function() {
 
       it('should return a promise', function() {
         var promise = this.communityAPI.getMember(123, 456);
-
         expect(promise.then).to.be.a.function;
       });
     });
@@ -249,7 +239,6 @@ describe('The Community Angular module', function() {
     describe('canRead() method', function() {
       it('should call communityService.canRead() method with the current scope community', function(done) {
         var comm = this.community;
-
         this.communityService.canRead = function(community) {
           expect(community).to.deep.equal(comm);
           done();
@@ -262,7 +251,6 @@ describe('The Community Angular module', function() {
     describe('isCommunityMember() method', function() {
       it('should call communityService.isMember() method with the current scope community', function(done) {
         var comm = this.community;
-
         this.communityService.isMember = function(community) {
           expect(community).to.deep.equal(comm);
           done();
@@ -293,7 +281,6 @@ describe('The Community Angular module', function() {
 
       it('should call the communityAPI if event msg.collaboration.id is equal to community._id', function(done) {
         var self = this;
-
         this.communityAPI.get = function(id) {
           expect(id).to.equal(self.community._id);
 
@@ -305,7 +292,6 @@ describe('The Community Angular module', function() {
 
       it('should update $scope if event target is the current community', function(done) {
         var result = { _id: this.community._id, added: true, writable: true };
-
         this.communityAPI.get = function() {
           return $q.when({ data: result });
         };
@@ -339,7 +325,6 @@ describe('The Community Angular module', function() {
 
       it('should call the communityAPI if event msg.id is equal to community._id', function(done) {
         var self = this;
-
         this.communityAPI.get = function(id) {
           expect(id).to.equal(self.community._id);
 
@@ -351,7 +336,6 @@ describe('The Community Angular module', function() {
 
       it('should update $scope if event target is the current community', function(done) {
         var result = { _id: this.community._id, added: true, writable: true };
-
         this.communityAPI.get = function() {
           return $q.when({ data: result });
         };
@@ -399,11 +383,8 @@ describe('The Community Angular module', function() {
     it('should have $pending.unique set when REST request is going on', function() {
       this.$httpBackend.expectGET('/community/api/communities?title=' + this.title).respond(this.emptyResponse);
       var element = this.$compile(html)(this.$rootScope);
-
       var input = element.find('input');
-
       var scope = element.scope();
-
       input.val(this.title);
       input.trigger('change');
       expect(scope.form.$pending).to.have.property('unique');
@@ -413,9 +394,7 @@ describe('The Community Angular module', function() {
       this.$httpBackend.expectGET('/community/api/communities?title=' + this.title).respond(this.response);
       var element = this.$compile(html)(this.$rootScope);
       var input = element.find('input');
-
       var scope = element.scope();
-
       input.val(this.title);
       input.trigger('change');
       this.$httpBackend.flush();
@@ -427,11 +406,8 @@ describe('The Community Angular module', function() {
     it('should remove the ajax error and set a unique=undefined error when the community does not exist', function() {
       this.$httpBackend.expectGET('/community/api/communities?title=' + this.title).respond(this.emptyResponse);
       var element = this.$compile(html)(this.$rootScope);
-
       var input = element.find('input');
-
       var scope = element.scope();
-
       input.val(this.title);
       input.trigger('change');
       this.$httpBackend.flush();
@@ -452,7 +428,6 @@ describe('The Community Angular module', function() {
     describe('isManager method', function() {
       it('should return true if use is community creator', function() {
         var user = { _id: 'aff2018' };
-
         var community = { creator: user._id };
 
         expect(this.communityService.isManager(community, user)).to.be.true;
@@ -460,7 +435,6 @@ describe('The Community Angular module', function() {
 
       it('should return true if use is domain administrator', function() {
         var user = { _id: 'aff2018' };
-
         var community = { creator: 'asian2019' };
 
         this.session.userIsDomainAdministrator = sinon.stub().returns(true);
@@ -471,7 +445,6 @@ describe('The Community Angular module', function() {
 
       it('should return false if use is not domain administrator nor community creator', function() {
         var user = { _id: 'aff2018' };
-
         var community = { creator: 'asian2019' };
 
         this.session.userIsDomainAdministrator = sinon.stub().returns(false);
@@ -512,7 +485,6 @@ describe('The Community Angular module', function() {
 
       it('should return a rejected promise if the user is already a member', function() {
         var rejected = false;
-
         this.community.member_status = 'member';
         this.communityService.join(this.community, { _id: 'user1' }).then(null, function() {
           rejected = true;
@@ -543,7 +515,6 @@ describe('The Community Angular module', function() {
 
       it('should return a rejected promise if the user is not a member', function() {
         var rejected = false;
-
         this.community.member_status = 'notmember';
         this.communityService.leave(this.community, { _id: 'user8' }).then(null, function() {
           rejected = true;
@@ -749,7 +720,6 @@ describe('The Community Angular module', function() {
 
       it('should return a rejected promise if the user is already a member', function() {
         var rejected = false;
-
         this.community.member_status = 'member';
         this.communityService.requestMembership(this.community, { _id: 'user1' }).then(null, function() {
           rejected = true;
@@ -792,7 +762,6 @@ describe('The Community Angular module', function() {
   describe('communityButtonJoin directive', function() {
     beforeEach(function() {
       var self = this;
-
       this.communityService = {};
       angular.mock.module(function($provide) {
         $provide.value('communityService', self.communityService);
@@ -815,7 +784,6 @@ describe('The Community Angular module', function() {
         this.communityService.canJoin = function() { return false; };
         this.scope.user = { _id: 'user1' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.true;
@@ -826,7 +794,6 @@ describe('The Community Angular module', function() {
         this.communityService.canJoin = function() { return true; };
         this.scope.user = { _id: 'user4' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.false;
@@ -847,7 +814,6 @@ describe('The Community Angular module', function() {
           done();
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         element.click();
       });
@@ -857,7 +823,6 @@ describe('The Community Angular module', function() {
           return $q.defer().promise;
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element.attr('disabled')).to.be.undefined;
         element.click();
@@ -868,12 +833,10 @@ describe('The Community Angular module', function() {
       describe('on communityService.join() response', function() {
         it('should enable back the button on success', function() {
           var deferred = $q.defer();
-
           this.communityService.join = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -883,12 +846,10 @@ describe('The Community Angular module', function() {
         });
         it('should enable back the button on failure', function() {
           var deferred = $q.defer();
-
           this.communityService.join = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -901,12 +862,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-join community="community" user="user" on-join="joinSuccess(community)"></community-button-join>';
           this.scope.joinSuccess = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.join = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -918,12 +877,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-join community="community" user="user" on-fail="joinFailure(community)"></community-button-join>';
           this.scope.joinFailure = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.join = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -937,7 +894,6 @@ describe('The Community Angular module', function() {
   describe('communityButtonLeave directive', function() {
     beforeEach(function() {
       var self = this;
-
       this.communityService = {};
       angular.mock.module(function($provide) {
         $provide.value('communityService', self.communityService);
@@ -959,7 +915,6 @@ describe('The Community Angular module', function() {
       it('should hide the button', function() {
         this.communityService.canLeave = function() { return false; };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.true;
@@ -970,7 +925,6 @@ describe('The Community Angular module', function() {
       it('should show the button', function() {
         this.communityService.canLeave = function() { return true; };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.false;
@@ -993,7 +947,6 @@ describe('The Community Angular module', function() {
           done();
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         element.click();
       });
@@ -1003,7 +956,6 @@ describe('The Community Angular module', function() {
           return $q.defer().promise;
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element.attr('disabled')).to.be.undefined;
         element.click();
@@ -1014,12 +966,10 @@ describe('The Community Angular module', function() {
       describe('on communityService.leave() response', function() {
         it('should enable back the button on success', function() {
           var deferred = $q.defer();
-
           this.communityService.leave = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1030,12 +980,10 @@ describe('The Community Angular module', function() {
 
         it('should enable back the button on failure', function() {
           var deferred = $q.defer();
-
           this.communityService.leave = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1048,12 +996,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-leave community="community" user="user" on-leave="leaveSuccess(community)"></community-button-leave>';
           this.scope.leaveSuccess = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.leave = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1065,12 +1011,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-leave community="community" user="user" on-fail="leaveFailure(community)"></community-button-leave>';
           this.scope.leaveFailure = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.leave = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1084,7 +1028,6 @@ describe('The Community Angular module', function() {
   describe('communityButtonRequestMembership directive', function() {
     beforeEach(function() {
       var self = this;
-
       this.communityService = {};
       angular.mock.module(function($provide) {
         $provide.value('communityService', self.communityService);
@@ -1107,7 +1050,6 @@ describe('The Community Angular module', function() {
         this.communityService.canRequestMembership = function() { return false; };
         this.scope.user = { _id: 'user4' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.true;
@@ -1118,7 +1060,6 @@ describe('The Community Angular module', function() {
         this.communityService.canRequestMembership = function() { return true; };
         this.scope.user = { _id: 'user4' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.false;
@@ -1139,7 +1080,6 @@ describe('The Community Angular module', function() {
           done();
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         element.click();
       });
@@ -1149,7 +1089,6 @@ describe('The Community Angular module', function() {
           return $q.defer().promise;
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element.attr('disabled')).to.be.undefined;
         element.click();
@@ -1160,12 +1099,10 @@ describe('The Community Angular module', function() {
       describe('on communityService.requestMembership() response', function() {
         it('should enable back the button on success', function() {
           var deferred = $q.defer();
-
           this.communityService.requestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1175,12 +1112,10 @@ describe('The Community Angular module', function() {
         });
         it('should enable back the button on failure', function() {
           var deferred = $q.defer();
-
           this.communityService.requestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1193,12 +1128,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-request-membership community="community" user="user" on-request="requestMembershipSuccess(community)"></community-button-request-membership>';
           this.scope.requestMembershipSuccess = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.requestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1210,12 +1143,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-request-membership community="community" user="user" on-fail="requestMembershipFailure(community)"></community-button-request-membership>';
           this.scope.requestMembershipFailure = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.requestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.click();
           this.scope.$digest();
@@ -1229,7 +1160,6 @@ describe('The Community Angular module', function() {
   describe('communityButtonCancelRequestMembership directive', function() {
     beforeEach(function() {
       var self = this;
-
       this.communityService = {};
       angular.mock.module(function($provide) {
         $provide.value('communityService', self.communityService);
@@ -1252,7 +1182,6 @@ describe('The Community Angular module', function() {
         this.communityService.canCancelRequestMembership = function() { return false; };
         this.scope.user = { _id: 'user4' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.true;
@@ -1263,7 +1192,6 @@ describe('The Community Angular module', function() {
         this.communityService.canCancelRequestMembership = function() { return true; };
         this.scope.user = { _id: 'user4' };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element).to.have.length(1);
         expect(element.hasClass('ng-hide')).to.be.false;
@@ -1284,7 +1212,6 @@ describe('The Community Angular module', function() {
           done();
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         element.find('.btn').click();
       });
@@ -1294,7 +1221,6 @@ describe('The Community Angular module', function() {
           return $q.defer().promise;
         };
         var element = this.$compile(this.html)(this.scope);
-
         this.scope.$digest();
         expect(element.find('.btn').attr('disabled')).to.be.undefined;
         element.find('.btn').click();
@@ -1305,12 +1231,10 @@ describe('The Community Angular module', function() {
       describe('on communityService.cancelRequestMembership() response', function() {
         it('should enable back the button on success', function() {
           var deferred = $q.defer();
-
           this.communityService.cancelRequestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.find('.btn').click();
           this.scope.$digest();
@@ -1320,12 +1244,10 @@ describe('The Community Angular module', function() {
         });
         it('should enable back the button on failure', function() {
           var deferred = $q.defer();
-
           this.communityService.cancelRequestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.find('.btn').click();
           this.scope.$digest();
@@ -1338,12 +1260,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-cancel-request-membership community="community" user="user" on-cancel-request="cancelRequestMembershipSuccess(community)"></community-button-cancel-request-membership>';
           this.scope.cancelRequestMembershipSuccess = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.cancelRequestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.find('.btn').click();
           this.scope.$digest();
@@ -1355,12 +1275,10 @@ describe('The Community Angular module', function() {
           this.html = '<community-button-cancel-request-membership community="community" user="user" on-fail="cancelRequestMembershipFailure(community)"></community-button-cancel-request-membership>';
           this.scope.cancelRequestMembershipFailure = function() { done(); };
           var deferred = $q.defer();
-
           this.communityService.cancelRequestMembership = function() {
             return deferred.promise;
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           element.find('.btn').click();
           this.scope.$digest();
@@ -1374,7 +1292,6 @@ describe('The Community Angular module', function() {
   describe('The communityMembershipRequestsWidget directive', function() {
     beforeEach(function() {
       var self = this;
-
       this.esnCollaborationClientService = {
         get: function() { },
         getRequestMemberships: function() { }
@@ -1419,11 +1336,9 @@ describe('The Community Angular module', function() {
       };
 
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
 
       var iscope = element.isolateScope();
-
       expect(iscope.error).to.exist;
       expect(iscope.error).to.be.true;
       done();
@@ -1431,17 +1346,14 @@ describe('The Community Angular module', function() {
 
     it('should set requests in the scope when API call succeeds', function(done) {
       var result = [{ user: { _id: 1, emails: ['foo@bar.com'] } }, { user: { _id: 2, emails: ['baz@bar.com'] } }];
-
       this.esnCollaborationClientService.getRequestMemberships = function() {
         return $q.when({ data: result });
       };
 
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
 
       var iscope = element.isolateScope();
-
       expect(iscope.requests).to.exist;
       expect(iscope.requests).to.deep.equal(result);
       done();
@@ -1474,10 +1386,8 @@ describe('The Community Angular module', function() {
       this.scope.member.user.firstname = 'john';
       this.scope.member.user.lastname = 'doe';
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       var iscope = element.isolateScope();
-
       expect(iscope.tooltip).to.be.defined;
       expect(iscope.tooltip.title).to.equal('john doe');
       done();
@@ -1486,10 +1396,8 @@ describe('The Community Angular module', function() {
     it('should set the title with email when firstname and lastname are not set', function(done) {
       this.scope.member.user.emails = ['john@doe.name'];
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       var iscope = element.isolateScope();
-
       expect(iscope.tooltip).to.be.defined;
       expect(iscope.tooltip.title).to.equal('john@doe.name');
       done();
@@ -1501,10 +1409,8 @@ describe('The Community Angular module', function() {
       this.scope.community.creator = 1;
 
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       var iscope = element.isolateScope();
-
       expect(iscope.creator).to.be.defined;
       expect(iscope.creator).to.be.true;
       done();
@@ -1516,10 +1422,8 @@ describe('The Community Angular module', function() {
       this.scope.community.creator = 2;
 
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       var iscope = element.isolateScope();
-
       expect(iscope.creator).to.not.be.defined;
       done();
     });
@@ -1563,7 +1467,6 @@ describe('The Community Angular module', function() {
       describe('The accept function', function() {
         it('should call esnCollaborationClientService#join', function(done) {
           var self = this;
-
           this.esnCollaborationClientService.join = function(collaborationType, community, user) {
             expect(collaborationType).to.equal('community');
             expect(community).to.equal(self.scope.community._id);
@@ -1572,10 +1475,8 @@ describe('The Community Angular module', function() {
             return done();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.accept();
         });
 
@@ -1584,10 +1485,8 @@ describe('The Community Angular module', function() {
             return $q.when();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.accept();
           this.scope.$digest();
           expect(iscope.done).to.be.true;
@@ -1598,10 +1497,8 @@ describe('The Community Angular module', function() {
             return $q.reject();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.accept();
           this.scope.$digest();
           expect(iscope.error).to.be.true;
@@ -1611,7 +1508,6 @@ describe('The Community Angular module', function() {
       describe('The decline function', function() {
         it('should call esnCollaborationClientService#cancelRequestMembership', function(done) {
           var self = this;
-
           this.esnCollaborationClientService.cancelRequestMembership = function(collaborationType, community, user) {
             expect(collaborationType).to.equal('community');
             expect(community).to.equal(self.scope.community._id);
@@ -1620,10 +1516,8 @@ describe('The Community Angular module', function() {
             return done();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.decline();
         });
 
@@ -1632,10 +1526,8 @@ describe('The Community Angular module', function() {
             return $q.reject();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.decline();
           this.scope.$digest();
           expect(iscope.error).to.be.true;
@@ -1646,10 +1538,8 @@ describe('The Community Angular module', function() {
             return $q.when();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.decline();
           this.scope.$digest();
           expect(iscope.done).to.be.true;
@@ -1660,7 +1550,6 @@ describe('The Community Angular module', function() {
 
   describe('The communityInviteUsers directive', function() {
     var userUtils;
-
     beforeEach(function() {
       var esnCollaborationClientService = {
         get: function() { },
@@ -1699,7 +1588,6 @@ describe('The Community Angular module', function() {
 
     it('should be hidden if current user is not a community manager', function() {
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       expect(element.hasClass('hidden')).to.be.true;
     });
@@ -1711,7 +1599,6 @@ describe('The Community Angular module', function() {
         }
       };
       var element = this.$compile(this.html)(this.scope);
-
       this.scope.$digest();
       expect(element.hasClass('hidden')).to.be.true;
     });
@@ -1720,9 +1607,7 @@ describe('The Community Angular module', function() {
       describe('The getInvitablePeople function', function() {
         it('should call esnCollaborationClientService#getInvitablePeople', function(done) {
           var query = 'testquery';
-
           var self = this;
-
           this.esnCollaborationClientService.getInvitablePeople = function(collaborationType, communityId, options) {
             expect(collaborationType).to.equal('community');
             expect(communityId).to.equal(self.scope.community._id);
@@ -1732,24 +1617,18 @@ describe('The Community Angular module', function() {
             return done();
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.getInvitablePeople(query);
         });
 
         it('should set displaynames on users if esnCollaborationClientService#getInvitablePeople works', function() {
           var query = 'testquery';
-
           var user1 = { _id: '123456', emails: ['pipo1@pipo.com'], firstname: 'pipo1', lastname: 'pipo1', preferredEmail: 'pipo1@pipo.com' };
-
           var user2 = { _id: '456789', emails: ['pipo2@pipo.com'], preferredEmail: 'pipo2@pipo.com' };
-
           var res = {
             data: [user1, user2]
           };
-
           this.esnCollaborationClientService.getInvitablePeople = function() {
             return {
               then: function(successfunction) {
@@ -1758,10 +1637,8 @@ describe('The Community Angular module', function() {
             };
           };
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.getInvitablePeople(query);
           expect(res.data).to.have.length(2);
           expect(userUtils.displayNameOf(res.data[0])).to.equal('pipo1 pipo1');
@@ -1772,15 +1649,10 @@ describe('The Community Angular module', function() {
       describe('The inviteUsers function', function() {
         it('should call esnCollaborationClientService#requestMembership for each user in the scope', function() {
           var user1 = { _id: '123456', emails: ['pipo1@pipo.com'], firstname: 'pipo1', lastname: 'pipo1' };
-
           var user2 = { _id: '456789', emails: ['pipo2@pipo.com'] };
-
           var users = [user1, user2];
-
           var self = this;
-
           var call = 0;
-
           this.esnCollaborationClientService.requestMembership = function(collaborationType, communityId, userId) {
             expect(collaborationType).to.equal('community');
             expect(communityId).to.equal(self.scope.community._id);
@@ -1792,7 +1664,6 @@ describe('The Community Angular module', function() {
           };
 
           var oldQAll = $q.all;
-
           $q.all = function(promises) {
             expect(promises).to.have.length(2);
 
@@ -1802,10 +1673,8 @@ describe('The Community Angular module', function() {
           };
 
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.users = users;
           iscope.inviteUsers();
           $q.all = oldQAll;
@@ -1817,10 +1686,8 @@ describe('The Community Angular module', function() {
           };
 
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.users = [];
           iscope.inviteUsers();
           done();
@@ -1832,10 +1699,8 @@ describe('The Community Angular module', function() {
           };
 
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.users = [{ _id: '123' }];
           iscope.running = true;
           iscope.inviteUsers();
@@ -1844,15 +1709,10 @@ describe('The Community Angular module', function() {
 
         it('should show success message if rest calls are OK', function() {
           var user1 = { _id: '123456', emails: ['pipo1@pipo.com'], firstname: 'pipo1', lastname: 'pipo1' };
-
           var user2 = { _id: '456789', emails: ['pipo2@pipo.com'] };
-
           var users = [user1, user2];
-
           var self = this;
-
           var call = 0;
-
           this.esnCollaborationClientService.requestMembership = function(collaborationType, communityId, userId) {
             expect(collaborationType).to.equal('community');
             expect(communityId).to.equal(self.scope.community._id);
@@ -1864,7 +1724,6 @@ describe('The Community Angular module', function() {
           };
 
           var oldQAll = $q.all;
-
           $q.all = function(promises) {
             expect(promises).to.have.length(2);
 
@@ -1876,10 +1735,8 @@ describe('The Community Angular module', function() {
           };
 
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.users = users;
           iscope.inviteUsers();
 
@@ -1895,15 +1752,10 @@ describe('The Community Angular module', function() {
 
         it('should show success message if rest calls are OK', function() {
           var user1 = { _id: '123456', emails: ['pipo1@pipo.com'], firstname: 'pipo1', lastname: 'pipo1' };
-
           var user2 = { _id: '456789', emails: ['pipo2@pipo.com'] };
-
           var users = [user1, user2];
-
           var self = this;
-
           var call = 0;
-
           this.esnCollaborationClientService.requestMembership = function(collaborationType, communityId, userId) {
             expect(collaborationType).to.equal('community');
             expect(communityId).to.equal(self.scope.community._id);
@@ -1915,9 +1767,7 @@ describe('The Community Angular module', function() {
           };
 
           var restError = new Error({ details: 'oups' });
-
           var oldQAll = $q.all;
-
           $q.all = function(promises) {
             expect(promises).to.have.length(2);
 
@@ -1929,10 +1779,8 @@ describe('The Community Angular module', function() {
           };
 
           var element = this.$compile(this.html)(this.scope);
-
           this.scope.$digest();
           var iscope = element.isolateScope();
-
           iscope.users = users;
           iscope.inviteUsers();
 
@@ -1977,7 +1825,6 @@ describe('The Community Angular module', function() {
 
     it('should initialize $scope.activityStreams', function() {
       var self = this;
-
       var AStrackerHelpers = {
         getActivityStreamsWithUnreadCount: function(objectType, callback) {
           return callback(null, [
