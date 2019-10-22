@@ -1,4 +1,4 @@
-const  AwesomeModule = require('awesome-module');
+const AwesomeModule = require('awesome-module');
 const Dependency = AwesomeModule.AwesomeModuleDependency;
 const path = require('path');
 const glob = require('glob-all');
