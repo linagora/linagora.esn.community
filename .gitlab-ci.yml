@@ -112,7 +112,7 @@ frontend-test:
 
 ####### tests with services requirements
 
-.midway-backend-test:
+midway-backend-test:
   <<: *test-template-svc
   script:
     - grunt --chunk=1 -v test-midway-backend

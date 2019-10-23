@@ -2,12 +2,12 @@
 
 const express = require('express');
 
-module.exports = function(dependencies, lib) {
+module.exports = function(dependencies) {
 
   const router = express.Router();
   const moduleName = 'linagora.esn.community';
 
-  require('./example')(dependencies, lib, router, moduleName);
+  require('./community')(dependencies, router, moduleName);
 
   return router;
 };

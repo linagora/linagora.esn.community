@@ -13,10 +13,7 @@ before(function() {
 
 beforeEach(function() {
   mockery.enable({warnOnReplace: false, warnOnUnregistered: false, useCleanCache: true});
-  const depsStore = {
-    logger: require('./fixtures/logger-noop'),
-    errors: require('./fixtures/errors')
-  };
+  const depsStore = {};
   const dependencies = function(name) {
     return depsStore[name];
   };
