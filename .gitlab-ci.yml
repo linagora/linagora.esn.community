@@ -117,7 +117,7 @@ midway-backend-test:
   script:
     - grunt --chunk=1 -v test-midway-backend
 
-.swagger:
+swagger:
   <<: *test-template
   stage: swagger
   script:
@@ -126,7 +126,7 @@ midway-backend-test:
     paths:
       - ./doc/REST_API/swagger/swagger.json
 
-.deploy-swagger:
+deploy-swagger:
   stage: deploy
   tags:
     - deployment
