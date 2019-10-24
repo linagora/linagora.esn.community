@@ -124,7 +124,7 @@ swagger:
     - grunt swagger-generate
   artifacts:
     paths:
-      - ./doc/REST_API/swagger/swagger.json
+      - ./doc/REST_API/swagger/community-swagger.json
 
 deploy-swagger:
   stage: deploy
@@ -138,5 +138,5 @@ deploy-swagger:
   only:
     - master@linagora/lgs/openpaas/linagora.esn.community
   script:
-    - perl -i -pe's/"host":"localhost:8080"/"schemes":["https"],"host":"demo.open-paas.org"/' ./doc/REST_API/swagger/swagger.json
-    - cp ./doc/REST_API/swagger/swagger.json /var/www/html
+    - perl -i -pe's/"host":"localhost:8080"/"schemes":["https"],"host":"demo.open-paas.org"/' ./doc/REST_API/swagger/community-swagger.json
+    - cp ./doc/REST_API/swagger/community-swagger.json /var/www/html
