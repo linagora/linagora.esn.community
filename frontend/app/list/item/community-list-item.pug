@@ -1,7 +1,7 @@
 .community-list-item
   .avatar
     a(ui-sref='community.view({ id: community._id })')
-      img.thumbnail.lv-img-md(src='/images/community.png', ng-src='/api/communities/{{community._id}}/avatar', alt=__("Community Avatar"))
+      img.thumbnail.lv-img-md(src='/images/community.png', ng-src='/community/api/communities/{{community._id}}/avatar', alt=__("Community Avatar"))
 
   .content
     .title
