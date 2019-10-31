@@ -1,3 +1,5 @@
+'use strict';
+
 const moduleName = 'linagora.esn.community';
 
 module.exports = (dependencies, router) => {
@@ -260,4 +262,6 @@ module.exports = (dependencies, router) => {
    *         $ref: "#/responses/cm_500"
    */
   router.get('/user/communities', communities.getMine);
+
+  return router;
 };
