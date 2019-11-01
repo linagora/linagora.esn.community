@@ -28,26 +28,20 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
   ],
 
   states: {
-    // lib: function(dependencies, callback) {
-    //   const moduleLib = require('./backend/lib')(dependencies);
-    //   const module = require('./backend/webserver/api')(dependencies, moduleLib);
+    lib: function(dependencies, callback) {
+      const api = require('./backend/webserver/api')(dependencies);
 
-    //   const lib = {
-    //     api: {
-    //       module: module
-    //     },
-    //     lib: moduleLib
-    //   };
-
-    //   return callback(null, lib);
-    // },
+      return callback(null, {
+        api
+      });
+    },
 
     deploy: function(dependencies, callback) {
       // Register the webapp
-      const app = require('./backend/webserver/application')(dependencies, this);
+      const app = require('./backend/webserver/application')(dependencies);
 
       // Register every exposed endpoints
-      // app.use('/api', this.api.module);
+      app.use('/api', this.api);
 
       const webserverWrapper = dependencies('webserver-wrapper');
 

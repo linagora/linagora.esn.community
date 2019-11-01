@@ -36,7 +36,7 @@
       $scope.selected = 'membership';
       $scope.loading = true;
 
-      userAPI.getCommunities()
+      communityAPI.getCommunities()
         .then(function(response) {
           $scope.communities = response.data;
         }, function(err) {

@@ -21,18 +21,6 @@ describe('The communityListController controller', function() {
         };
       }
     };
-    this.userAPI = {
-      getCommunities: function() {
-        return {
-          then: function() {
-            return {
-              finally: function() {
-              }
-            };
-          }
-        };
-      }
-    };
     this.domain = {_id: 123};
     this.user = {_id: 456};
     this.scope = $rootScope.$new();
@@ -46,8 +34,7 @@ describe('The communityListController controller', function() {
       $log: this.log,
       domain: this.domain,
       user: this.user,
-      communityAPI: this.communityAPI,
-      userAPI: this.userAPI
+      communityAPI: this.communityAPI
     });
   }));
 
@@ -134,17 +121,17 @@ describe('The communityListController controller', function() {
   });
 
   describe('getMembership() method', function() {
-    it('should call userAPI#getCommunities fn', function(done) {
-      this.userAPI.getCommunities = function() {
+    it('should call communityAPI#getCommunities fn', function(done) {
+      this.communityAPI.getCommunities = function() {
         return done();
       };
       this.scope.getMembership();
     });
 
-    it('should set the $scope.communities with userAPI#getCommunities result', function(done) {
+    it('should set the $scope.communities with communityAPI#getCommunities result', function(done) {
       var result = [{_id: 123}, {_id: 234}];
 
-      this.userAPI.getCommunities = function() {
+      this.communityAPI.getCommunities = function() {
         return $q.when({ data: result });
       };
       this.scope.getMembership();
@@ -153,8 +140,8 @@ describe('The communityListController controller', function() {
       done();
     });
 
-    it('should set $scope.error to true when userAPI#getCommunities fails', function(done) {
-      this.userAPI.getCommunities = function() {
+    it('should set $scope.error to true when communityAPI#getCommunities fails', function(done) {
+      this.communityAPI.getCommunities = function() {
         return $q.reject({ err: 'failed' });
       };
       this.scope.getMembership();
@@ -164,7 +151,7 @@ describe('The communityListController controller', function() {
     });
 
     it('should set $scope.selected to membership', function(done) {
-      this.userAPI.getCommunities = function() {
+      this.communityAPI.getCommunities = function() {
         return $q.reject({err: 'failed'});
       };
       this.scope.getMembership();

@@ -57,12 +57,17 @@ angular.module('linagora.esn.community')
       return communityRestangular.one('communities', id).customPUT(body);
     }
 
+    function getCommunities() {
+      return communityRestangular.one('user').all('communities').getList();
+    }
+
     return {
       list: list,
       get: get,
       del: del,
       create: create,
       uploadAvatar: uploadAvatar,
+      getCommunities: getCommunities,
       getMember: getMember,
       getMembers: getMembers,
       update: update
