@@ -1,11 +1,11 @@
 (function(angular) {
   'use strict';
 
-  angular.module('linagora.esn.community').component('communityMembersInvitations', {
+  angular.module('linagora.esn.community').component('esnCommunityMembersInvitations', {
     bindings: {
       community: '='
     },
-    controller: 'CommunityMembersInvitationsController',
+    controller: 'ESNCommunityMembersInvitationsController',
     templateUrl: '/community/app/members/invitations/community-members-invitations.html'
   });
 

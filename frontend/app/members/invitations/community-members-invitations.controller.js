@@ -1,9 +1,9 @@
 (function(angular) {
   'use strict';
 
-  angular.module('linagora.esn.community').controller('CommunityMembersInvitationsController', CommunityMembersInvitationsController);
+  angular.module('linagora.esn.community').controller('ESNCommunityMembersInvitationsController', ESNCommunityMembersInvitationsController);
 
-  function CommunityMembersInvitationsController(communityService, session) {
+  function ESNCommunityMembersInvitationsController(communityService, session) {
     var self = this;
 
     self.isCommunityManager = isCommunityManager;
