@@ -37,7 +37,7 @@ angular.module('linagora.esn.community')
     function uploadAvatar(id, blob, mime) {
       return $upload.http({
         method: 'POST',
-        url: httpConfigurer.getUrl('/api/communities/' + id + '/avatar'),
+        url: httpConfigurer.getUrl('/community/api/communities/' + id + '/avatar'),
         headers: {'Content-Type': mime},
         data: blob,
         params: {mimetype: mime, size: blob.size},
