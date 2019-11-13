@@ -3,7 +3,7 @@
 const mockery = require('mockery');
 const chai = require('chai');
 const path = require('path');
-let backendPath = path.normalize(__dirname + '/../../backend');
+const backendPath = path.normalize(__dirname + '/../../backend');
 let rse;
 
 before(function() {
@@ -23,7 +23,7 @@ before(function() {
   };
 
   rse = require('linagora-rse');
-  
+
   this.helpers = {};
 
   rse.test.helpers(this.helpers, this.testEnv);
