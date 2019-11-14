@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('requiresCommunityMember fn', function() {
+describe('The community middleware #requiresCommunityMember function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

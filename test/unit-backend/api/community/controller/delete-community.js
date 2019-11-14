@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('The delete fn', function() {
+describe('The community controller #delete function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

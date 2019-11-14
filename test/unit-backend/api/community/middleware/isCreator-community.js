@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('the isCreator fn', function() {
+describe('The community middleware #isCreator function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

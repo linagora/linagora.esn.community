@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('getMembers fn', function() {
+describe('The community controller #getMembers function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

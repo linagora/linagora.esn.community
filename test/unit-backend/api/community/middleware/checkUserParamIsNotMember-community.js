@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('the checkUserParamIsNotMember fn', function() {
+describe('The community middleware #checkUserParamIsNotMember function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

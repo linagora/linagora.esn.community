@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('the checkUserIdParameterIsCurrentUser fn', function() {
+describe('The community middleware #checkUserIdParameterIsCurrentUser function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

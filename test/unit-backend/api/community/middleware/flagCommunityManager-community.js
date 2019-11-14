@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('flagCommunityManager() method', function() {
+describe('The community middleware #flagCommunityManager method', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

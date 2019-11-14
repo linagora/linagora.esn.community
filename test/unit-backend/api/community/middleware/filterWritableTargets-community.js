@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('The filterWritableTargets fn', function() {
+describe('The community middleware #filterWritableTargets function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

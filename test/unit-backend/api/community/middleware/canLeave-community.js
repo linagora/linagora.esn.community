@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var sinon = require('sinon');
 var mockery = require('mockery');
 
-describe('the canLeave fn', function() {
+describe('The community middleware #canLeave function', function() {
     var Community;
     var communityCoreModule;
     var collaborationCoreModule;

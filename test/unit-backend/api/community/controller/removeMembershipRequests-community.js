@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('removeMembershipRequest() method', function() {
+describe('The community controller #removeMembershipRequest method', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

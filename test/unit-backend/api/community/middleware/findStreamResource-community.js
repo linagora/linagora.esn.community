@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var sinon = require('sinon');
 
-describe('The findStreamResource fn', function() {
+describe('The community middleware #findStreamResource function', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;

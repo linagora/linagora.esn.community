@@ -1,6 +1,6 @@
 var sinon = require('sinon');
 
-describe('canRead() method', function() {
+describe('The community middleware #canRead() method', function() {
   var Community;
   var communityCoreModule;
   var collaborationCoreModule;
