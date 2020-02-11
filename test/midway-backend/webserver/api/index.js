@@ -1069,4 +1069,100 @@ describe('The communities API', function() {
       });
     });
   });
+
+  describe('GET /community/api/user/communities', function() {
+    let models1, models2;
+
+    beforeEach(function(done) {
+      helpers.api.applyDomainDeployment('linagora_test_domain', function(err, models) {
+        if (err) { return done(err); }
+        models1 = models;
+
+        helpers.api.applyDomainDeployment('linagora_test_domain2', function(err, models) {
+          if (err) { return done(err); }
+          models2 = models;
+
+          const jobs = models.users.map(function(user) {
+            return function(done) {
+              user.domains.push({ domain_id: models1.domain._id });
+              user.save(done);
+            };
+          });
+
+          async.parallel(jobs, done);
+
+        });
+      });
+    });
+    it('should return 401 if user is not authenticated', function(done) {
+      helpers.api.requireLogin(app, 'get', '/community/api/user/communities', done);
+    });
+
+    it('should return 200 with an empty array is there are no communities', function(done) {
+      helpers.api.loginAsUser(app, models1.users[1].emails[0], 'secret', function(err, loggedInAsUser) {
+        if (err) {
+          return done(err);
+        }
+        const req = loggedInAsUser(request(app).get('/community/api/user/communities'));
+
+        req.expect(200);
+        req.end(function(err, res) {
+          expect(err).to.not.exist;
+          expect(res.body).to.exist;
+          expect(res.body).to.be.an.array;
+          expect(res.body.length).to.equal(0);
+
+          return done();
+        });
+      });
+    });
+
+    it('should return the list of communities the user is member of', function(done) {
+      function createCommunity(name, creator, domain, member) {
+        return function(done) {
+          let opts = function(json) { return json; };
+
+          if (member) {
+            opts = function(json) {
+              json.members.push({member: {id: member, objectType: 'user'}});
+
+              return json;
+            };
+          }
+          helpers.api.createCommunity(name, creator, domain, opts, done);
+        };
+      }
+
+      async.parallel([
+        createCommunity('open domain1 no member', models1.users[0]._id, models1.domain._id),
+        createCommunity('open domain1 member', models1.users[0]._id, models1.domain._id, models2.users[1]._id),
+        createCommunity('open domain2 no member', models2.users[0]._id, models1.domain._id),
+        createCommunity('open domain2 member', models2.users[0]._id, models1.domain._id, models2.users[1]._id)
+      ], function(err, communities) {
+        if (err) {
+          return done(err);
+        }
+
+        const correctIds = [communities[1]._id + '', communities[3]._id + ''];
+
+        helpers.api.loginAsUser(app, models2.users[1].emails[0], 'secret', function(err, loggedInAsUser) {
+          if (err) {
+            return done(err);
+          }
+          const req = loggedInAsUser(request(app).get('/community/api/user/communities'));
+
+          req.expect(200);
+          req.end(function(err, res) {
+            expect(err).to.not.exist;
+            expect(res.body).to.be.an.array;
+            expect(res.body.length).to.equal(2);
+            expect(correctIds).to.contain(String(res.body[0]._id));
+            expect(correctIds).to.contain(String(res.body[1]._id));
+            done();
+          });
+        });
+      });
+
+    });
+  });
 });
