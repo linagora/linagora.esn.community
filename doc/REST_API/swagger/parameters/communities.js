@@ -52,13 +52,6 @@
   *     description: The community description
   *     required: true
   *     type: string
-  *   ct_raw_data:
-  *     name: raw_data
-  *     in: body
-  *     description: the raw file data.
-  *     required: true
-  *     schema:
-  *       format: binary
   *   ct_noTitleCheck:
   *     name: noTitleCheck
   *     in: query
