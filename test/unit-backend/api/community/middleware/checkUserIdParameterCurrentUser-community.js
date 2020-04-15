@@ -1,5 +1,6 @@
-var expect = require('chai').expect;
-var sinon = require('sinon');
+const { expect } = require('chai');
+const sinon = require('sinon');
+const mockery = require('mockery');
 
 describe('The community middleware #checkUserIdParameterIsCurrentUser function', function() {
   var Community;
@@ -39,7 +40,7 @@ describe('The community middleware #checkUserIdParameterIsCurrentUser function',
       addStreamWritableFinder: function() {}
     };
 
-    this.moduleHelpers.addDep('community', communityCoreModule);
+    mockery.registerMock('../../../lib', () => communityCoreModule);
     this.moduleHelpers.addDep('collaboration', collaborationCoreModule);
     this.moduleHelpers.addDep('db', dbCoreModule);
     this.moduleHelpers.addDep('logger', loggerCoreModule);

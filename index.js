@@ -16,6 +16,7 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.webserver.middleware.domain', 'domainMW'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.webserver.middleware.module', 'moduleMW'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.webserver.middleware.activitystream', 'activitystreamMW'),
+    new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.wsserver', 'wsserver'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.i18n', 'i18n'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.pubsub', 'pubsub'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.elasticsearch', 'elasticsearch'),
@@ -23,15 +24,16 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.tuple', 'tuple'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.domain', 'domain'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.esn-config', 'esn-config'),
-    new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.community', 'community'),
     new Dependency(Dependency.TYPE_NAME, 'linagora.esn.core.image', 'image')
   ],
 
   states: {
     lib: function(dependencies, callback) {
+      const moduleLib = require('./backend/lib')(dependencies);
       const api = require('./backend/webserver/api')(dependencies);
 
       return callback(null, {
+        lib: moduleLib,
         api
       });
     },
@@ -63,6 +65,15 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
       webserverWrapper.addApp(MODULE_NAME, app);
 
       return callback();
+    },
+
+    start: function(dependencies, callback) {
+      const wsserver = require('./backend/wsserver')(dependencies);
+
+      wsserver.init();
+      this.lib.init();
+
+      callback();
     }
   }
 });

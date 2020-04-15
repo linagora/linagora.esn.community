@@ -66,14 +66,25 @@ before(function(done) {
       return done(err);
     }
 
-    const expressApp = require(`${self.testEnv.backendPath}/webserver/application`)(self.helpers.modules.current.deps);
-    const api = require(`${self.testEnv.backendPath}/webserver/api`)(self.helpers.modules.current.deps);
+    self.helpers.modules.current.deps('wsserver').start(self.testEnv.serversConfig.express.port, {}, err => {
+      if (err) {
+        return done(err);
+      }
 
-    expressApp.use(require('body-parser').json());
-    expressApp.use(`/${MODULE_NAME}/api`, api);
-    self.helpers.modules.current.app = self.helpers.modules.getWebServer(expressApp);
+      const expressApp = require(`${self.testEnv.backendPath}/webserver/application`)(self.helpers.modules.current.deps);
+      const api = require(`${self.testEnv.backendPath}/webserver/api`)(self.helpers.modules.current.deps);
 
-    done();
+      expressApp.use(require('body-parser').json());
+      expressApp.use(`/${MODULE_NAME}/api`, api);
+      self.helpers.modules.current.app = self.helpers.modules.getWebServer(expressApp);
+
+      const wsserver = require('../../backend/wsserver')(self.helpers.modules.current.deps);
+
+      wsserver.init();
+      self.helpers.modules.current.lib.lib.init();
+
+      done();
+    });
   });
 });
 

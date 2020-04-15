@@ -40,7 +40,7 @@ describe('The community middleware #canLeave function', function() {
             addStreamWritableFinder: function() {}
         };
 
-        this.moduleHelpers.addDep('community', communityCoreModule);
+        mockery.registerMock('../../../lib', () => communityCoreModule);
         this.moduleHelpers.addDep('collaboration', collaborationCoreModule);
         this.moduleHelpers.addDep('db', dbCoreModule);
         this.moduleHelpers.addDep('logger', loggerCoreModule);

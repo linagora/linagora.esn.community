@@ -1120,16 +1120,21 @@ describe('The communities API', function() {
     it('should return the list of communities the user is member of', function(done) {
       function createCommunity(name, creator, domain, member) {
         return function(done) {
-          let opts = function(json) { return json; };
+          const creatorId = creator._id || creator;
+          const communityToCreate = {
+            title: name,
+            type: 'open',
+            creator: creatorId,
+            domain_ids: [domain._id || domain],
+            members: [
+              { member: { id: creatorId, objectType: 'user' } },
+              { member: { id: member, objectType: 'user' } }
+            ]
+          };
 
-          if (member) {
-            opts = function(json) {
-              json.members.push({member: {id: member, objectType: 'user'}});
+          const communityInstance = new Community(communityToCreate);
 
-              return json;
-            };
-          }
-          helpers.api.createCommunity(name, creator, domain, opts, done);
+          communityInstance.save(done);
         };
       }
 
