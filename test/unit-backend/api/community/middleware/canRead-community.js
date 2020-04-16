@@ -1,4 +1,5 @@
-var sinon = require('sinon');
+const sinon = require('sinon');
+const mockery = require('mockery');
 
 describe('The community middleware #canRead() method', function() {
   var Community;
@@ -38,7 +39,7 @@ describe('The community middleware #canRead() method', function() {
         addStreamWritableFinder: function() {}
     };
 
-    this.moduleHelpers.addDep('community', communityCoreModule);
+    mockery.registerMock('../../../lib', () => communityCoreModule);
     this.moduleHelpers.addDep('collaboration', collaborationCoreModule);
     this.moduleHelpers.addDep('db', dbCoreModule);
     this.moduleHelpers.addDep('logger', loggerCoreModule);

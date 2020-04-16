@@ -1,5 +1,6 @@
-var expect = require('chai').expect;
-var sinon = require('sinon');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const mockery = require('mockery');
 
 describe('The community controller #get method', function() {
   var Community;
@@ -37,7 +38,7 @@ describe('The community controller #get method', function() {
       }
     };
 
-    this.moduleHelpers.addDep('community', communityCoreModule);
+    mockery.registerMock('../../../lib', () => communityCoreModule);
     this.moduleHelpers.addDep('collaboration', collaborationCoreModule);
     this.moduleHelpers.addDep('image', imageCoreModule);
     this.moduleHelpers.addDep('db', dbCoreModule);

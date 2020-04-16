@@ -1,8 +1,8 @@
 const acceptedImageTypes = ['image/jpeg', 'image/gif', 'image/png'];
 
 module.exports = dependencies => {
-  const communityModule = dependencies('community');
-  const { permission } = dependencies('community');
+  const communityModule = require('../../../lib')(dependencies);
+  const permission = communityModule.permission;
   const { CONSTANT: collaborationConstants } = dependencies('collaboration');
   const imageModule = dependencies('image');
   const escapeStringRegexp = require('escape-string-regexp');

@@ -1,13 +1,14 @@
-var expect = require('chai').expect;
-var sinon = require('sinon');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const mockery = require('mockery');
 
 describe('The community middleware #canJoin function', function() {
-  var Community;
-  var communityCoreModule;
-  var collaborationCoreModule;
-  var dbCoreModule;
-  var loggerCoreModule;
-  var activitystreamMwCoreModule;
+  let Community;
+  let communityCoreModule;
+  let collaborationCoreModule;
+  let dbCoreModule;
+  let loggerCoreModule;
+  let activitystreamMwCoreModule;
 
   beforeEach(function() {
     Community = {
@@ -39,7 +40,7 @@ describe('The community middleware #canJoin function', function() {
         addStreamWritableFinder: function() {}
     };
 
-    this.moduleHelpers.addDep('community', communityCoreModule);
+    mockery.registerMock('../../../lib', () => communityCoreModule);
     this.moduleHelpers.addDep('collaboration', collaborationCoreModule);
     this.moduleHelpers.addDep('db', dbCoreModule);
     this.moduleHelpers.addDep('logger', loggerCoreModule);
