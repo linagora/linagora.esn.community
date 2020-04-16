@@ -45,6 +45,7 @@ module.exports = function(config) {
       'frontend/views/**/*.pug'
     ],
     exclude: [
+      'node_modules/linagora-rse/test/fixtures/simulated-collaboration/**/*.js',
       'node_modules/linagora-rse/frontend/js/**/*.spec.js',
       'node_modules/linagora-rse/frontend/js/**/*.run.js',
       'frontend/app/app.config.js'
