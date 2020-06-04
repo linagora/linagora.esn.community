@@ -68,6 +68,10 @@ const awesomeModule = new AwesomeModule(AWESOME_MODULE_NAME, {
     },
 
     start: function(dependencies, callback) {
+      const logger = dependencies('logger');
+
+      logger.info('THE LINAGORA.ESN.COMMUNITY MODULE IS DEPRECATED: It will not receive any future updates or bug fixes. It will be removed from OpenPaaS in version 1.9.0.');
+
       const wsserver = require('./backend/wsserver')(dependencies);
 
       wsserver.init();
