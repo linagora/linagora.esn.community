@@ -1,6 +1,6 @@
 {
   "name": "linagora.esn.community",
-  "version": "1.8.0-rc3",
+  "version": "1.8.0-dev",
   "description": "OpenPaaS Module for community",
   "main": "index.js",
   "devDependencies": {
